@@ -209,4 +209,4 @@ This project is for educational purposes as part of a university course.
 
 ---
 
-**Built with ❤️ using AWS Serverless Architecture**
+**Built Using AWS Serverless Architecture**

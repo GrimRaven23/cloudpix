@@ -41,61 +41,39 @@ User Upload → S3 (Original) → Lambda Trigger → Process Image → S3 (Proce
 - ✅ Professional UI/UX
 
 ## 🚀 Deployment Instructions
+ 
+ ### Prerequisites
+ - AWS Account
+ - AWS CLI configured
+ - Terraform installed
+ - Zip utility installed (`sudo apt-get install zip`)
+ 
+ ### Automated Deployment
+ 
+ We have provided a `deploy.sh` script to automate the entire deployment process.
+ 
+ 1. **Clone Repository**
+    ```bash
+    git clone https://github.com/yourusername/serverless-image-processor.git
+    cd serverless-image-processor
+    ```
+ 
+ 2. **Run Deployment Script**
+    ```bash
+    chmod +x deploy.sh
+    ./deploy.sh
+    ```
+ 
+    This script will:
+    - Package the Lambda function
+    - Create all AWS resources (S3, Lambda, IAM) using Terraform
+    - Configure the Frontend with the new Bucket names
+    - Upload the Frontend to the S3 Website bucket
+    - Output your live Website URL
+ 
+ 3. **Access Your App**
+    - Click the URL provided at the end of the script!
 
-### Prerequisites
-- AWS Account (Free Tier)
-- AWS CLI configured
-- Git installed
-
-### Step 1: Clone Repository
-```bash
-git clone https://github.com/yourusername/serverless-image-processor.git
-cd serverless-image-processor
-```
-
-### Step 2: Setup AWS Resources
-
-#### Create S3 Buckets
-```bash
-# Original images bucket
-aws s3 mb s3://your-name-original-images-2024 --region us-east-1
-
-# Processed images bucket
-aws s3 mb s3://your-name-processed-images-2024 --region us-east-1
-```
-
-#### Configure Bucket Policies
-See `docs/bucket-policies.md` for detailed policies.
-
-### Step 3: Deploy Lambda Function
-```bash
-cd lambda
-zip function.zip image_processor.py
-aws lambda create-function \
-  --function-name ImageProcessor \
-  --runtime python3.11 \
-  --role arn:aws:iam::YOUR_ACCOUNT:role/lambda-execution-role \
-  --handler image_processor.lambda_handler \
-  --zip-file fileb://function.zip
-```
-
-### Step 4: Add Pillow Layer
-```bash
-aws lambda update-function-configuration \
-  --function-name ImageProcessor \
-  --layers arn:aws:lambda:us-east-1:770693421928:layer:Klayers-p311-Pillow:1
-```
-
-### Step 5: Configure S3 Trigger
-```bash
-aws s3api put-bucket-notification-configuration \
-  --bucket your-name-original-images-2024 \
-  --notification-configuration file://s3-notification.json
-```
-
-### Step 6: Deploy Frontend
-1. Update bucket names in `frontend/index.html` (lines 393-395)
-2. Host on S3 static website or local server
 
 ## 🧪 Testing
 

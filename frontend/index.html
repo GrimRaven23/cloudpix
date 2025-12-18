@@ -472,12 +472,14 @@
     <nav>
         <div class="nav-container">
             <div class="logo">
-                ☁️ CloudPix
+                <a href="#" onclick="showView('uploadView')"
+                    style="text-decoration:none; color:var(--primary); display:flex; gap:0.5rem; align-items:center;">
+                    ☁️ CloudPix
+                </a>
             </div>
-            <a href="#" onclick="showView('uploadView')">Home</a>
-            <a href="#features">Features</a>
-            <a href="#" onclick="showView('adminView')">Admin Dashboard</a>
-            <button class="btn-primary" onclick="showView('uploadView')">Upload</button>
+            <div class="nav-links">
+                <a href="#" onclick="showView('adminView')">Admin Dashboard</a>
+            </div>
         </div>
     </nav>
 
@@ -580,29 +582,6 @@
                 </div>
             </div>
 
-            <!-- Features Section -->
-            <div class="features" id="features">
-                <div class="feature-card">
-                    <div class="feature-icon">⚡</div>
-                    <h3>Lightning Fast</h3>
-                    <p>Process images in seconds using AWS Lambda serverless functions</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">🔒</div>
-                    <h3>Secure Storage</h3>
-                    <p>Images stored securely in Amazon S3 with enterprise-grade encryption</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">📊</div>
-                    <h3>Auto-Scaling</h3>
-                    <p>Handles 1 or 10,000 images with automatic scaling infrastructure</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">💰</div>
-                    <h3>Cost Efficient</h3>
-                    <p>Pay only for what you use with serverless pay-per-execution model</p>
-                </div>
-            </div>
         </div> <!-- End uploadView -->
 
         <!-- Admin View -->

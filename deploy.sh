@@ -71,15 +71,12 @@ cd ../frontend
 # Upload files ensuring they are public
 aws s3 sync . s3://$WEBSITE_BUCKET/
 
-echo ""
-echo "� Creating Bundle for AWS Amplify (Manual Deploy)..."
-# Create a zip file of the frontend for manual upload to Amplify if desired
-zip -r ../amplify_deploy.zip . -x "*.git*"
-echo "   - Created amplify_deploy.zip (Use this if deploying via Amplify Console 'Deploy without Git')"
+# Return to root for Git operations
+cd ..
 
 echo ""
-echo "�🔄 Updating Git Repository..."
-# Add all changes
+echo "🔄 Updating Git Repository..."
+# Add all changes (including deploy.sh and terraform)
 git add .
 # Commit with timestamp
 git commit -m "Auto-deploy: $(date)" || echo "Nothing to commit"

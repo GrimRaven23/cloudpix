@@ -23,14 +23,41 @@ resource "aws_s3_bucket" "original_images" {
   tags   = local.common_tags
 }
 
+resource "aws_s3_bucket_public_access_block" "original_public_access" {
+  bucket = aws_s3_bucket.original_images.id
+
+  block_public_acls       = false
+  block_public_policy     = false
+  ignore_public_acls      = false
+  restrict_public_buckets = false
+}
+
+resource "aws_s3_bucket_policy" "original_policy" {
+  bucket = aws_s3_bucket.original_images.id
+  depends_on = [aws_s3_bucket_public_access_block.original_public_access]
+
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Sid       = "AllowPublicPut"
+        Effect    = "Allow"
+        Principal = "*"
+        Action    = ["s3:PutObject"]
+        Resource  = "${aws_s3_bucket.original_images.arn}/*"
+      }
+    ]
+  })
+}
+
 resource "aws_s3_bucket_cors_configuration" "original_images_cors" {
   bucket = aws_s3_bucket.original_images.id
 
   cors_rule {
     allowed_headers = ["*"]
-    allowed_methods = ["PUT", "POST", "GET"]
+    allowed_methods = ["PUT", "POST", "GET", "HEAD"]
     allowed_origins = ["*"] 
-    expose_headers  = ["ETag"]
+    expose_headers  = ["ETag", "x-amz-request-id", "x-amz-id-2"]
     max_age_seconds = 3000
   }
 }

@@ -1,17 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CloudPix - Serverless Image Processing Platform</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-        
+
         :root {
             --primary: #6366f1;
             --primary-dark: #4f46e5;
@@ -24,7 +26,7 @@
             --white: #ffffff;
             --shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
         }
-        
+
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -32,18 +34,18 @@
             color: var(--dark);
             line-height: 1.6;
         }
-        
+
         /* Navigation */
         nav {
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px);
             padding: 1rem 0;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
             position: sticky;
             top: 0;
             z-index: 100;
         }
-        
+
         .nav-container {
             max-width: 1200px;
             margin: 0 auto;
@@ -52,7 +54,7 @@
             justify-content: space-between;
             align-items: center;
         }
-        
+
         .logo {
             display: flex;
             align-items: center;
@@ -61,24 +63,24 @@
             font-weight: 800;
             color: var(--primary);
         }
-        
+
         .nav-links {
             display: flex;
             gap: 2rem;
             align-items: center;
         }
-        
+
         .nav-links a {
             text-decoration: none;
             color: var(--dark);
             font-weight: 500;
             transition: color 0.3s;
         }
-        
+
         .nav-links a:hover {
             color: var(--primary);
         }
-        
+
         .btn-primary {
             background: var(--primary);
             color: white;
@@ -91,13 +93,13 @@
             text-decoration: none;
             display: inline-block;
         }
-        
+
         .btn-primary:hover {
             background: var(--primary-dark);
             transform: translateY(-2px);
             box-shadow: 0 10px 20px rgba(99, 102, 241, 0.3);
         }
-        
+
         /* Hero Section */
         .hero {
             text-align: center;
@@ -105,7 +107,7 @@
             max-width: 1200px;
             margin: 0 auto;
         }
-        
+
         .hero h1 {
             font-size: 3.5rem;
             font-weight: 800;
@@ -113,13 +115,13 @@
             margin-bottom: 1rem;
             line-height: 1.2;
         }
-        
+
         .hero p {
             font-size: 1.25rem;
             color: rgba(255, 255, 255, 0.9);
             margin-bottom: 2rem;
         }
-        
+
         .badge {
             display: inline-block;
             background: rgba(255, 255, 255, 0.2);
@@ -131,14 +133,14 @@
             font-weight: 600;
             margin-bottom: 1rem;
         }
-        
+
         /* Main Container */
         .container {
             max-width: 1200px;
             margin: 2rem auto;
             padding: 0 2rem;
         }
-        
+
         /* Upload Section */
         .upload-card {
             background: white;
@@ -147,7 +149,7 @@
             box-shadow: var(--shadow);
             margin-bottom: 2rem;
         }
-        
+
         .upload-zone {
             border: 3px dashed var(--primary);
             border-radius: 15px;
@@ -159,38 +161,38 @@
             position: relative;
             overflow: hidden;
         }
-        
+
         .upload-zone:hover {
             border-color: var(--secondary);
             background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(139, 92, 246, 0.1) 100%);
             transform: translateY(-2px);
         }
-        
+
         .upload-zone.dragover {
             border-color: var(--success);
             background: rgba(16, 185, 129, 0.1);
         }
-        
+
         .upload-icon {
             font-size: 4rem;
             margin-bottom: 1rem;
         }
-        
+
         .upload-zone h3 {
             font-size: 1.5rem;
             color: var(--dark);
             margin-bottom: 0.5rem;
         }
-        
+
         .upload-zone p {
             color: #64748b;
             margin-bottom: 1.5rem;
         }
-        
+
         input[type="file"] {
             display: none;
         }
-        
+
         .file-info {
             display: none;
             background: var(--light);
@@ -199,22 +201,22 @@
             margin-top: 1.5rem;
             text-align: left;
         }
-        
+
         .file-info.active {
             display: block;
         }
-        
+
         /* Processing Animation */
         .processing {
             display: none;
             text-align: center;
             padding: 2rem;
         }
-        
+
         .processing.active {
             display: block;
         }
-        
+
         .spinner {
             width: 60px;
             height: 60px;
@@ -224,11 +226,13 @@
             animation: spin 1s linear infinite;
             margin: 0 auto 1rem;
         }
-        
+
         @keyframes spin {
-            to { transform: rotate(360deg); }
+            to {
+                transform: rotate(360deg);
+            }
         }
-        
+
         .progress-bar {
             width: 100%;
             height: 8px;
@@ -237,7 +241,7 @@
             overflow: hidden;
             margin-top: 1rem;
         }
-        
+
         .progress-fill {
             height: 100%;
             background: linear-gradient(90deg, var(--primary), var(--secondary));
@@ -245,42 +249,57 @@
             transition: width 0.3s;
             animation: shimmer 2s infinite;
         }
-        
+
         @keyframes shimmer {
-            0% { opacity: 0.6; }
-            50% { opacity: 1; }
-            100% { opacity: 0.6; }
+            0% {
+                opacity: 0.6;
+            }
+
+            50% {
+                opacity: 1;
+            }
+
+            100% {
+                opacity: 0.6;
+            }
         }
-        
+
         /* Results Section */
         .results {
             display: none;
             animation: fadeIn 0.5s;
         }
-        
+
         .results.active {
             display: block;
         }
-        
+
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
-        
+
         .comparison {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 2rem;
             margin-top: 2rem;
         }
-        
+
         .image-card {
             background: white;
             border-radius: 15px;
             padding: 1.5rem;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
-        
+
         .image-card h3 {
             display: flex;
             align-items: center;
@@ -288,51 +307,51 @@
             margin-bottom: 1rem;
             font-size: 1.25rem;
         }
-        
+
         .image-wrapper {
             position: relative;
             border-radius: 10px;
             overflow: hidden;
             background: var(--light);
         }
-        
+
         .image-wrapper img {
             width: 100%;
             display: block;
             transition: transform 0.3s;
         }
-        
+
         .image-wrapper:hover img {
             transform: scale(1.05);
         }
-        
+
         .image-stats {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 1rem;
             margin-top: 1rem;
         }
-        
+
         .stat {
             background: var(--light);
             padding: 0.75rem;
             border-radius: 8px;
             text-align: center;
         }
-        
+
         .stat-label {
             font-size: 0.75rem;
             color: #64748b;
             text-transform: uppercase;
             font-weight: 600;
         }
-        
+
         .stat-value {
             font-size: 1.25rem;
             font-weight: 700;
             color: var(--primary);
         }
-        
+
         /* Status Messages */
         .status {
             padding: 1rem 1.5rem;
@@ -343,29 +362,29 @@
             align-items: center;
             gap: 0.5rem;
         }
-        
+
         .status.active {
             display: flex;
         }
-        
+
         .status.success {
             background: rgba(16, 185, 129, 0.1);
             color: var(--success);
             border-left: 4px solid var(--success);
         }
-        
+
         .status.error {
             background: rgba(239, 68, 68, 0.1);
             color: var(--error);
             border-left: 4px solid var(--error);
         }
-        
+
         .status.processing {
             background: rgba(245, 158, 11, 0.1);
             color: var(--warning);
             border-left: 4px solid var(--warning);
         }
-        
+
         /* Features Section */
         .features {
             display: grid;
@@ -373,35 +392,35 @@
             gap: 2rem;
             margin: 3rem 0;
         }
-        
+
         .feature-card {
             background: white;
             padding: 2rem;
             border-radius: 15px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             text-align: center;
             transition: transform 0.3s;
         }
-        
+
         .feature-card:hover {
             transform: translateY(-5px);
         }
-        
+
         .feature-icon {
             font-size: 3rem;
             margin-bottom: 1rem;
         }
-        
+
         .feature-card h3 {
             font-size: 1.25rem;
             margin-bottom: 0.5rem;
         }
-        
+
         .feature-card p {
             color: #64748b;
             font-size: 0.9rem;
         }
-        
+
         /* Action Buttons */
         .actions {
             display: flex;
@@ -409,18 +428,18 @@
             justify-content: center;
             margin-top: 2rem;
         }
-        
+
         .btn-secondary {
             background: white;
             color: var(--primary);
             border: 2px solid var(--primary);
         }
-        
+
         .btn-secondary:hover {
             background: var(--primary);
             color: white;
         }
-        
+
         /* Footer */
         footer {
             background: rgba(255, 255, 255, 0.1);
@@ -430,15 +449,24 @@
             padding: 2rem;
             margin-top: 4rem;
         }
-        
+
         /* Responsive */
         @media (max-width: 768px) {
-            .hero h1 { font-size: 2rem; }
-            .comparison { grid-template-columns: 1fr; }
-            .nav-links { display: none; }
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .comparison {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-links {
+                display: none;
+            }
         }
     </style>
 </head>
+
 <body>
     <!-- Navigation -->
     <nav>
@@ -446,12 +474,10 @@
             <div class="logo">
                 ☁️ CloudPix
             </div>
-            <div class="nav-links">
-                <a href="#features">Features</a>
-                <a href="#how-it-works">How It Works</a>
-                <a href="#about">About</a>
-                <button class="btn-primary">Get Started</button>
-            </div>
+            <a href="#" onclick="showView('uploadView')">Home</a>
+            <a href="#features">Features</a>
+            <a href="#" onclick="showView('adminView')">Admin Dashboard</a>
+            <button class="btn-primary" onclick="showView('uploadView')">Upload</button>
         </div>
     </nav>
 
@@ -464,111 +490,127 @@
 
     <!-- Main Container -->
     <div class="container">
-        <!-- Upload Card -->
-        <div class="upload-card">
-            <div class="upload-zone" id="uploadZone">
-                <div class="upload-icon">📸</div>
-                <h3>Upload Your Image</h3>
-                <p>Drag and drop an image here, or click to browse</p>
-                <button class="btn-primary" onclick="document.getElementById('fileInput').click()">
-                    Choose File
-                </button>
-                <input type="file" id="fileInput" accept="image/*">
-                <p style="margin-top: 1rem; font-size: 0.875rem; color: #94a3b8;">
-                    Supports: JPG, PNG, GIF, WebP • Max size: 10MB
-                </p>
-            </div>
-            
-            <div class="file-info" id="fileInfo">
-                <strong>Selected File:</strong>
-                <p id="fileName"></p>
-            </div>
-        </div>
 
-        <!-- Status -->
-        <div id="statusContainer"></div>
+        <!-- Upload View (Default) -->
+        <div id="uploadView">
+            <!-- Upload Card -->
+            <div class="upload-card">
+                <div class="upload-zone" id="uploadZone">
+                    <div class="upload-icon">📸</div>
+                    <h3>Upload Your Image</h3>
+                    <p>Drag and drop an image here, or click to browse</p>
+                    <button class="btn-primary" onclick="document.getElementById('fileInput').click()">
+                        Choose File
+                    </button>
+                    <input type="file" id="fileInput" accept="image/*">
+                    <p style="margin-top: 1rem; font-size: 0.875rem; color: #94a3b8;">
+                        Supports: JPG, PNG, GIF, WebP • Max size: 10MB
+                    </p>
+                </div>
 
-        <!-- Processing Animation -->
-        <div class="upload-card processing" id="processing">
-            <div class="spinner"></div>
-            <h3>Processing Your Image</h3>
-            <p>This usually takes 5-10 seconds...</p>
-            <div class="progress-bar">
-                <div class="progress-fill" id="progressFill" style="width: 0%"></div>
+                <div class="file-info" id="fileInfo">
+                    <strong>Selected File:</strong>
+                    <p id="fileName"></p>
+                </div>
             </div>
-        </div>
 
-        <!-- Results -->
-        <div class="results" id="results">
-            <div class="comparison">
-                <!-- Original Image -->
-                <div class="image-card">
-                    <h3>📤 Original Image</h3>
-                    <div class="image-wrapper">
-                        <img id="originalImage" alt="Original">
-                    </div>
-                    <div class="image-stats">
-                        <div class="stat">
-                            <div class="stat-label">Size</div>
-                            <div class="stat-value" id="originalSize">-</div>
+            <!-- Status -->
+            <div id="statusContainer"></div>
+
+            <!-- Processing Animation -->
+            <div class="upload-card processing" id="processing">
+                <div class="spinner"></div>
+                <h3>Processing Your Image</h3>
+                <p>This usually takes 5-10 seconds...</p>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill" style="width: 0%"></div>
+                </div>
+            </div>
+
+            <!-- Results -->
+            <div class="results" id="results">
+                <div class="comparison">
+                    <!-- Original Image -->
+                    <div class="image-card">
+                        <h3>📤 Original Image</h3>
+                        <div class="image-wrapper">
+                            <img id="originalImage" alt="Original">
                         </div>
-                        <div class="stat">
-                            <div class="stat-label">Dimensions</div>
-                            <div class="stat-value" id="originalDimensions">-</div>
+                        <div class="image-stats">
+                            <div class="stat">
+                                <div class="stat-label">Size</div>
+                                <div class="stat-value" id="originalSize">-</div>
+                            </div>
+                            <div class="stat">
+                                <div class="stat-label">Dimensions</div>
+                                <div class="stat-value" id="originalDimensions">-</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Processed Image -->
+                    <div class="image-card">
+                        <h3>✨ Processed Image</h3>
+                        <div class="image-wrapper">
+                            <img id="processedImage" alt="Processed">
+                        </div>
+                        <div class="image-stats">
+                            <div class="stat">
+                                <div class="stat-label">Size</div>
+                                <div class="stat-value" id="processedSize">-</div>
+                            </div>
+                            <div class="stat">
+                                <div class="stat-label">Format</div>
+                                <div class="stat-value" id="processedDimensions">800x800 <span
+                                        style="font-size:0.6em; display:block; color:var(--success)">ML
+                                        Standardized</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Processed Image -->
-                <div class="image-card">
-                    <h3>✨ Processed Image</h3>
-                    <div class="image-wrapper">
-                        <img id="processedImage" alt="Processed">
-                    </div>
-                    <div class="image-stats">
-                        <div class="stat">
-                            <div class="stat-label">Size</div>
-                            <div class="stat-value" id="processedSize">-</div>
-                        </div>
-                        <div class="stat">
-                            <div class="stat-label">Dimensions</div>
-                            <div class="stat-value" id="processedDimensions">800x800</div>
-                        </div>
-                    </div>
+                <div class="actions">
+                    <button class="btn-primary" onclick="downloadProcessed()">
+                        ⬇️ Download Processed
+                    </button>
+                    <button class="btn-primary btn-secondary" onclick="resetUpload()">
+                        🔄 Process Another
+                    </button>
                 </div>
             </div>
 
-            <div class="actions">
-                <button class="btn-primary" onclick="downloadProcessed()">
-                    ⬇️ Download Processed
-                </button>
-                <button class="btn-primary btn-secondary" onclick="resetUpload()">
-                    🔄 Process Another
-                </button>
+            <!-- Features Section -->
+            <div class="features" id="features">
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <h3>Lightning Fast</h3>
+                    <p>Process images in seconds using AWS Lambda serverless functions</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔒</div>
+                    <h3>Secure Storage</h3>
+                    <p>Images stored securely in Amazon S3 with enterprise-grade encryption</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <h3>Auto-Scaling</h3>
+                    <p>Handles 1 or 10,000 images with automatic scaling infrastructure</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">💰</div>
+                    <h3>Cost Efficient</h3>
+                    <p>Pay only for what you use with serverless pay-per-execution model</p>
+                </div>
             </div>
-        </div>
+        </div> <!-- End uploadView -->
 
-        <!-- Features Section -->
-        <div class="features" id="features">
-            <div class="feature-card">
-                <div class="feature-icon">⚡</div>
-                <h3>Lightning Fast</h3>
-                <p>Process images in seconds using AWS Lambda serverless functions</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">🔒</div>
-                <h3>Secure Storage</h3>
-                <p>Images stored securely in Amazon S3 with enterprise-grade encryption</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">📊</div>
-                <h3>Auto-Scaling</h3>
-                <p>Handles 1 or 10,000 images with automatic scaling infrastructure</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">💰</div>
-                <h3>Cost Efficient</h3>
-                <p>Pay only for what you use with serverless pay-per-execution model</p>
+        <!-- Admin View -->
+        <div id="adminView" style="display:none; max-width: 1200px; margin: 2rem auto; padding: 0 2rem;">
+            <h2 style="margin-bottom: 2rem; color: white; text-align: center;">🛡️ Admin Dashboard: Processed Files</h2>
+            <div id="adminGrid"
+                style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1.5rem;">
+                <!-- Content loaded via JS -->
             </div>
         </div>
     </div>
@@ -580,12 +622,75 @@
     </footer>
 
     <script>
-        // CONFIGURATION - REPLACE WITH YOUR BUCKET NAMES
-        const CONFIG = {
-            ORIGINAL_BUCKET: 'your-name-original-images-2024',
-            PROCESSED_BUCKET: 'your-name-processed-images-2024',
-            REGION: 'us-east-1'
+        let CONFIG = {
+            ORIGINAL_BUCKET: '',
+            PROCESSED_BUCKET: '',
+            REGION: 'us-east-1',
+            API_URL: ''
         };
+
+        async function loadConfig() {
+            try {
+                const response = await fetch('./config.json');
+                CONFIG = await response.json();
+                console.log('Config loaded:', CONFIG);
+            } catch (error) {
+                console.error('Failed to load config.json:', error);
+                showStatus('Failed to load configuration.', 'error');
+            }
+        }
+
+        // Navigation Logic
+        function showView(viewName) {
+            // Hide all views
+            ['uploadView', 'aboutView', 'adminView'].forEach(id => {
+                const el = document.getElementById(id);
+                if (el) el.style.display = 'none';
+            });
+
+            // Show selected
+            const selected = document.getElementById(viewName);
+            if (selected) {
+                selected.style.display = 'block';
+                if (viewName === 'adminView') loadAdminData();
+            }
+        }
+
+        async function loadAdminData() {
+            const grid = document.getElementById('adminGrid');
+            grid.innerHTML = '<div class="spinner"></div><p style="text-align:center">Fetching records from Cloud...</p>';
+
+            try {
+                const res = await fetch(CONFIG.API_URL);
+                if (!res.ok) throw new Error('API Error');
+                const data = await res.json();
+
+                if (!data.files || data.files.length === 0) {
+                    grid.innerHTML = '<p style="text-align:center; grid-column: 1/-1">No processed images found yet.</p>';
+                    return;
+                }
+
+                grid.innerHTML = data.files.map(file => `
+                    <div class="image-card">
+                        <div class="image-wrapper" style="height: 150px;">
+                            <img src="${file.url}" loading="lazy" alt="${file.key}">
+                        </div>
+                        <div style="margin-top:0.5rem">
+                            <h4 style="font-size:0.9rem; white-space:nowrap; overflow:hidden; text-overflow:ellipsis" title="${file.key}">${file.key}</h4>
+                            <p style="font-size:0.8rem; color:#64748b">${formatBytes(file.size)}</p>
+                            <a href="${file.url}" target="_blank" class="btn-primary" style="padding:0.2rem 0.5rem; font-size:0.8rem; margin-top:0.5rem">View Full</a>
+                        </div>
+                    </div>
+                `).join('');
+
+            } catch (e) {
+                console.error(e);
+                grid.innerHTML = '<p style="text-align:center; color:red; grid-column: 1/-1">Failed to load admin data. ensure files are processed.</p>';
+            }
+        }
+
+        // Initialize config
+        loadConfig();
 
         const uploadZone = document.getElementById('uploadZone');
         const fileInput = document.getElementById('fileInput');
@@ -594,7 +699,7 @@
         const processing = document.getElementById('processing');
         const results = document.getElementById('results');
         const statusContainer = document.getElementById('statusContainer');
-        
+
         let currentFile = null;
         let processedFileName = null;
 
@@ -628,13 +733,13 @@
             currentFile = file;
             fileName.textContent = `${file.name} (${formatBytes(file.size)})`;
             fileInfo.classList.add('active');
-            
+
             // Show original image preview
             const reader = new FileReader();
             reader.onload = (e) => {
                 document.getElementById('originalImage').src = e.target.result;
                 document.getElementById('originalSize').textContent = formatBytes(file.size);
-                
+
                 const img = new Image();
                 img.onload = () => {
                     document.getElementById('originalDimensions').textContent = `${img.width}x${img.height}`;
@@ -651,7 +756,7 @@
             showStatus('Uploading to AWS S3...', 'processing');
             processing.classList.add('active');
             results.classList.remove('active');
-            
+
             let progress = 0;
             const progressInterval = setInterval(() => {
                 progress = Math.min(progress + 5, 90);
@@ -663,7 +768,7 @@
                 const timestamp = Date.now();
                 const uploadFileName = `${timestamp}-${file.name}`;
                 const uploadUrl = `https://${CONFIG.ORIGINAL_BUCKET}.s3.${CONFIG.REGION}.amazonaws.com/${uploadFileName}`;
-                
+
                 const uploadResponse = await fetch(uploadUrl, {
                     method: 'PUT',
                     body: file,
@@ -683,14 +788,14 @@
                 // Show processed image
                 const processedUrl = `https://${CONFIG.PROCESSED_BUCKET}.s3.${CONFIG.REGION}.amazonaws.com/${processedFileName}`;
                 document.getElementById('processedImage').src = processedUrl;
-                
+
                 // Estimate processed size (usually smaller)
                 const estimatedSize = Math.floor(file.size * 0.3);
                 document.getElementById('processedSize').textContent = formatBytes(estimatedSize);
 
                 clearInterval(progressInterval);
                 document.getElementById('progressFill').style.width = '100%';
-                
+
                 setTimeout(() => {
                     processing.classList.remove('active');
                     results.classList.add('active');
@@ -711,17 +816,17 @@
 
             for (let i = 0; i < maxAttempts; i++) {
                 const url = `https://${CONFIG.PROCESSED_BUCKET}.s3.${CONFIG.REGION}.amazonaws.com/${fileName}`;
-                
+
                 try {
                     const response = await fetch(url, { method: 'HEAD' });
                     if (response.ok) return true;
                 } catch (e) {
                     // Not ready yet
                 }
-                
+
                 await new Promise(resolve => setTimeout(resolve, delay));
             }
-            
+
             throw new Error('Processing timeout. Check Lambda logs in CloudWatch.');
         }
 
@@ -754,4 +859,5 @@
         }
     </script>
 </body>
+
 </html>

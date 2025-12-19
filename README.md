@@ -149,15 +149,15 @@ aws logs tail /aws/lambda/ImageProcessor --follow
 
 ## 📚 Project Structure
 
-```
 serverless-image-processor/
 ├── frontend/
 │   └── index.html          # Main web interface
 ├── lambda/
-│   └── image_processor.py  # Lambda function code
-├── docs/
-│   └── architecture.png    # Architecture diagram
-├── README.md               # This file
+│   └── image_processor.py  # Core Logic
+├── terraform/              # IaC Definitions
+├── scripts/                # Helper scripts (secrets, etc)
+├── deploy.sh               # Main Deployment Script
+├── README.md               # Documentation
 └── .gitignore             # Git ignore rules
 ```
 

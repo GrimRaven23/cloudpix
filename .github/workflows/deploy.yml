@@ -19,4 +19,4 @@ jobs:
       
       - name: Sync frontend to S3
         run: |
-          aws s3 sync ./frontend s3://your-frontend-bucket/ --delete
+          aws s3 sync ./frontend s3://cloudpix-web-0cfa2b32/ --delete

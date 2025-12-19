@@ -27,7 +27,16 @@ fi
 echo "📦 Packaging Lambda function..."
 cd lambda
 # Install Pillow locally
-pip3 install Pillow -t . --upgrade
+# Create temporary virtual environment to avoid PEP 668 system errors
+python3 -m venv build_env
+source build_env/bin/activate
+
+# Install Pillow locally with AWS Lambda compatible binaries
+pip install Pillow -t . --platform manylinux2014_x86_64 --only-binary=:all: --implementation cp --python-version 3.11 --upgrade
+
+# Cleanup
+deactivate
+rm -rf build_env
 
 # Remove old zip if exists
 rm -f function.zip

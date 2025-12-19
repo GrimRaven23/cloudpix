@@ -162,9 +162,13 @@ resource "aws_iam_policy" "lambda_policy" {
       {
         Effect = "Allow"
         Action = [
-          "s3:GetObject"
+          "s3:GetObject",
+          "s3:ListBucket"
         ]
-        Resource = "${aws_s3_bucket.original_images.arn}/*"
+        Resource = [
+          "${aws_s3_bucket.original_images.arn}",
+          "${aws_s3_bucket.original_images.arn}/*"
+        ]
       },
       {
         Effect = "Allow"

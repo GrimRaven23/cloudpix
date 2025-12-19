@@ -761,11 +761,12 @@
                 showStatus('✅ Uploaded! Lambda processing...', 'processing');
 
                 // Wait for Lambda to process
-                processedFileName = `processed-${uploadFileName.split('.')[0]}.jpg`;
+                const nameWithoutExt = uploadFileName.substring(0, uploadFileName.lastIndexOf('.'));
+                processedFileName = `processed-${nameWithoutExt}.jpg`;
                 await waitForProcessedImage(processedFileName);
 
                 // Show processed image
-                const processedUrl = `https://${CONFIG.PROCESSED_BUCKET}.s3.${CONFIG.REGION}.amazonaws.com/${processedFileName}`;
+                const processedUrl = `https://${CONFIG.PROCESSED_BUCKET}.s3.${CONFIG.REGION}.amazonaws.com/${encodeURIComponent(processedFileName)}`;
                 document.getElementById('processedImage').src = processedUrl;
 
                 // Estimate processed size (usually smaller)
@@ -790,14 +791,16 @@
         }
 
         async function waitForProcessedImage(fileName) {
-            const maxAttempts = 30;
+            const maxAttempts = 60;
             const delay = 2000;
 
             for (let i = 0; i < maxAttempts; i++) {
-                const url = `https://${CONFIG.PROCESSED_BUCKET}.s3.${CONFIG.REGION}.amazonaws.com/${fileName}`;
+                // Encode the filename to handle spaces and special chars correctly in URL
+                const url = `https://${CONFIG.PROCESSED_BUCKET}.s3.${CONFIG.REGION}.amazonaws.com/${encodeURIComponent(fileName)}`;
 
                 try {
-                    const response = await fetch(url, { method: 'HEAD' });
+                    // Add cache: 'no-store' to prevent caching of 404s
+                    const response = await fetch(url, { method: 'HEAD', cache: 'no-store' });
                     if (response.ok) return true;
                 } catch (e) {
                     // Not ready yet

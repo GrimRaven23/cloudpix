@@ -3,6 +3,7 @@ import boto3
 import os
 from PIL import Image
 import io
+import urllib.parse
 
 s3_client = boto3.client('s3')
 
@@ -13,7 +14,8 @@ def lambda_handler(event, context):
     try:
         # Get bucket and file info from S3 event
         source_bucket = event['Records'][0]['s3']['bucket']['name']
-        source_key = event['Records'][0]['s3']['object']['key']
+        # URL Decode the key (S3 replaces spaces with +)
+        source_key = urllib.parse.unquote_plus(event['Records'][0]['s3']['object']['key'])
         
         print(f"Processing: {source_key} from {source_bucket}")
         
@@ -84,4 +86,3 @@ def lambda_handler(event, context):
             'statusCode': 500,
             'body': json.dumps({'error': str(e)})
         }
-

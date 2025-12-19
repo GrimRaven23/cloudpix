@@ -39,3 +39,9 @@ build/
 *.tfstate
 *.tfstate.backup
 .terraform/
+
+# Deployment Artifacts
+build_env/
+lambda/PIL/
+lambda/pillow.libs/
+lambda/*.dist-info/

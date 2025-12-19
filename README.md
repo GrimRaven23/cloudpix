@@ -163,10 +163,10 @@ serverless-image-processor/
 
 ## 👨‍💻 Author
 
-**Your Name**  
+**Amadou Hanne**  
 Cloud Computing Final Project  
 Course: Introduction to Cloud Computing  
-Date: December 2024
+Date: December 2025
 
 ## 📄 License
 
@@ -176,7 +176,7 @@ This project is for educational purposes as part of a university course.
 
 - AWS Documentation
 - Pillow (PIL) Library
-- Professor [Name]
+- Professor [Dr. Faye]
 - Cloud Computing Course Materials
 
 ## 🔗 Links

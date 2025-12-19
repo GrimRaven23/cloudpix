@@ -1,0 +1,13 @@
+version: 1
+frontend:
+  phases:
+    # No build step needed for vanilla JS/HTML, but we define the phase
+    build:
+      commands: []
+  artifacts:
+    # IMPORTANT: This tells Amplify your site is in the 'frontend' folder
+    baseDirectory: frontend
+    files:
+      - "**/*"
+  cache:
+    paths: []

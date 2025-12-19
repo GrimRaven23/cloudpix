@@ -1,6 +1,6 @@
 # CloudPix - Serverless Image Processing Platform
 
-![Architecture](docs/architecture.png)
+[View Architecture Diagram (PDF)](AmadouHanneCloudCProjectArchitecture.pdf)
 
 ## 🚀 Overview
 

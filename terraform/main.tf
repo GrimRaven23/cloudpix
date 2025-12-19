@@ -237,7 +237,7 @@ resource "aws_lambda_function_url" "list_images_url" {
   authorization_type = "NONE"
 
   cors {
-    allow_credentials = true
+    allow_credentials = false
     allow_origins     = ["*"]
     allow_methods     = ["GET"]
     allow_headers     = ["date", "keep-alive"]

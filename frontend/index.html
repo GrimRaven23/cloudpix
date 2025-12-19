@@ -796,7 +796,7 @@
 
             for (let i = 0; i < maxAttempts; i++) {
                 // Encode the filename to handle spaces and special chars correctly in URL
-                const url = `https://${CONFIG.PROCESSED_BUCKET}.s3.${CONFIG.REGION}.amazonaws.com/${encodeURIComponent(fileName)}`;
+                const url = `https://${CONFIG.PROCESSED_BUCKET}.s3.${CONFIG.REGION}.amazonaws.com/${encodeURIComponent(fileName)}?t=${Date.now()}`;
 
                 try {
                     // Add cache: 'no-store' to prevent caching of 404s
